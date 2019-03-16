@@ -2,4 +2,20 @@
 
 {% block content %}
 {{block.super}}
-{% endblock %}
+<!-- Single Image -->
+{% for image in images %}
+
+<!--Display images  -->
+<div class="col-md-4"></div>
+<div class="col-sm-7 col-md-7">
+    <br>
+    <br>
+    <br>
+    <img src="{{image.image.url}}" class="img-responsive" alt="Image"
+        style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
+    <p>{{ image.pub_date }}</p>
+    <p>{{ image.description }}</p>
+
+    {% endfor %}
+
+    {% endblock %}
