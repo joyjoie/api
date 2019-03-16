@@ -17,5 +17,17 @@
     <p>{{ image.details }}</p>
 
     {% endfor %}
+    <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
 
-    {% endblock %}
+        {% csrf_token%}
+        <input type="hidden" name="image_id" value="{{image.id}}">
+        {% bootstrap_form form layout='inline' %}
+        <input type="submit" value="comment">
+
+
+    </form>
+
+</div>
+{% endfor %}
+
+{% endblock %}
