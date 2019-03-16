@@ -1,23 +1,33 @@
 {%extends 'photos/base.html'%}
-
+{% load bootstrap3%}
 {% block content %}
 {{block.super}}
-<!-- Single Image -->
-{% for image in images %}
 
-<!--Display images  -->
-<div class="col-md-4"></div>
-<div class="col-sm-7 col-md-7">
-    <br>
-    <br>
-    <br>
-    <img src="{{image.image.url}}" class="img-responsive" alt="Image"
+<div class="container">
+
+  <div class="row">
+
+    <!-- Single Image -->
+    {%for image in images%}
+
+    <!--Display images  -->
+    <div class="col-md-4"></div>
+    <div class="col-sm-7 col-md-7">
+      <br>
+      <br>
+      <br>
+      <img src="{{image.image.url}}" class="img-responsive" alt="Image"
         style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
-    <p>{{ image.pub_date }}</p>
-    <p>{{ image.details }}</p>
+      <p>{{ image.pub_date }}</p>
+      <p>{{ image.caption }}</p>
 
-    {% endfor %}
-    <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
+      {% for comment in comments%}
+      {%if comment.img == image%}
+      <p><strong>{{comment.user.username}}</strong> {{comment.comment}}</p>
+      {% endif%}
+      {%endfor%}
+
+      <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
 
         {% csrf_token%}
         <input type="hidden" name="image_id" value="{{image.id}}">
@@ -25,9 +35,19 @@
         <input type="submit" value="comment">
 
 
-    </form>
+      </form>
+
+    </div>
+    {% endfor %}
+    <div class="col-md-3"></div>
+  </div>
 
 </div>
-{% endfor %}
+
+
+
+
+
+
 
 {% endblock %}

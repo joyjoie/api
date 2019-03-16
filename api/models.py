@@ -65,7 +65,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 class Comments(models.Model):
-    img = models.ForeignKey(Image)
+    img = models.ForeignKey(Project)
     user = models.ForeignKey(User)
     comment = models.CharField(max_length=60)
 

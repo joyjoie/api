@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 import datetime as dt
-from .models import Project,Profile
+from .models import Project,Profile,Comments
 from . forms import ProfileUpdateForm,CommentForm
 from django.contrib import messages
 
