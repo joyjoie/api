@@ -3,16 +3,30 @@ from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 import datetime as dt
 from .models import Project,Profile
-from . forms import ProfileUpdateForm
+from . forms import ProfileUpdateForm,CommentForm
 from django.contrib import messages
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def index(request):
     images = Project.display_images()
-    date = dt.date.today()   
-  
-    return render(request, 'photos/index.html', {"images":images,"date": date,})
+    comments=Comments.display_comments()
+    if request.method=='POST':
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            image_id=int(request.POST.get('image_id'))
+            image=Image.objects.get(id=image_id)
+            comment=form.save(commit=False)
+            comment.img=image
+            comment.user=request.user
+            comment.save()
+            return redirect('index')
+    else:
+        form=CommentForm()
+
+    context ={"images":images, "comments":comments , "form":form}
+        
+    return render(request, 'photos/index.html',context )
 
 @login_required
 def profile(request):
