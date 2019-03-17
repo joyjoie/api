@@ -46,3 +46,14 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     return render(request, 'profile/profile.html', {"fo":fo,"profile":profile,"p_form":p_form})
+
+
+def upload(request):
+    if request.method =='POST':
+        form=ProjectForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form =ProfileForm()
+    return render(request, 'photos/addimg.html', {"form":form})
