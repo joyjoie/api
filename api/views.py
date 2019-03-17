@@ -15,7 +15,7 @@ def index(request):
         form=CommentForm(request.POST)
         if form.is_valid():
             image_id=int(request.POST.get('image_id'))
-            image=Image.objects.get(id=image_id)
+            image=Project.objects.get(id=image_id)
             comment=form.save(commit=False)
             comment.img=image
             comment.user=request.user
