@@ -46,6 +46,9 @@ def profile(request,id):
         
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+
+        profile=Profile.objects.get(id=id)
+        current_profile=Profile.objects.get(user=request.user)
     return render(request, 'profile/profile.html', {"fo":fo,"profile":profile,"p_form":p_form})
 
 
