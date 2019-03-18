@@ -28,7 +28,7 @@ class Project(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.CharField(max_length=60 ,blank=True)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     
@@ -54,6 +54,9 @@ class Profile(models.Model):
     @classmethod
     def pro(cls):
         return cls.objects.all()
+
+ 
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

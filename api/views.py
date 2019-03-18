@@ -44,13 +44,14 @@ def image(request, id,slug):
 
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
-    user = request.user    
-    images = Image.objects.all().filter(profile_id = user.id)
-    return render(request, 'profile.html', {'images':images, "user":user, "current_user":request.user })
+    profile = request.user.profile   
+    # images = Project.objects.all().filter(id = profile.user.id)
+    
+    return render(request, 'profile/profile.html', { "profile":profile })
 
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def profile(request,id):
     profile=Profile.objects.get(id=id)
     
