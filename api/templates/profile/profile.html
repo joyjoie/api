@@ -24,8 +24,7 @@
             </div>
             <form action="{%url 'profile' profile.id%}" method="post" enctype="multipart/form-data">
                 {% csrf_token%}
-                <!-- <input type="hidden" name="follower"> -->
-                <!-- <button type="submit">Follow</button> -->
+                
 
             </form>
         </div>
@@ -44,7 +43,7 @@
 
     </div>
     <div>
-        <a href="{% url 'upload'%}"> Upload an image</a>
+        <a href="{% url 'upload'%}"> Upload Project</a>
     </div>
     
 </div>
