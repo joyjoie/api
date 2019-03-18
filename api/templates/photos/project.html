@@ -39,8 +39,9 @@
 
                 </form>
                 
-                
-
+                {% for rating in ratings%}
+                <p><strong>{{rating.user.username}}</strong> {{rating.rating}}</p>
+                {%endfor%}
 
             </div>
             

@@ -49,9 +49,11 @@ def project(request,id):
             return redirect('project', project.id)
     else:
         form=RatingsForm()
-    
 
-    return render(request, 'photos/project.html', { "project":project,"form":RatingsForm()}) 
+    ratings= Ratings.objects.filter(pr=project)
+
+
+    return render(request, 'photos/project.html', { "project":project,"form":form,"ratings":ratings}) 
 
 
 @login_required(login_url='/accounts/login/')
