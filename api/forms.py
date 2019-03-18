@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile,Project,Comments
+from .models import Profile,Project,Comments,Ratings
 
 
 
@@ -18,3 +18,8 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         exclude =['pub_date']
+
+class RatingsForm(forms.ModelForm):
+    class Meta:
+        model = Ratings
+        fields = ['design','usability','content']

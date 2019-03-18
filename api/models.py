@@ -11,7 +11,7 @@ class Project(models.Model):
     image = models.ImageField(upload_to="image/")
     details = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-
+    link= models.CharField(max_length=60, default=True)
     def save_image(self):
         self.save()
 
@@ -80,3 +80,17 @@ class Comments(models.Model):
         self.save()
 
 
+class Ratings(models.Model):
+    pr = models.ForeignKey(Project)
+    user = models.ForeignKey(User)
+    design = models.CharField(max_length=60)
+    usability = models.CharField(max_length=60)
+    content = models.CharField(max_length=60)
+
+
+    @classmethod
+    def display_ratings(cls):
+        return cls.objects.all()
+
+    def save_ratings(self):
+        self.save()

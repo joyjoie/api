@@ -97,3 +97,5 @@ def upload(request):
     else:
         form=ProjectForm()
     return render(request, 'photos/addimg.html', {"form":form})
+
+
