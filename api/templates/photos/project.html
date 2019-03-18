@@ -40,7 +40,9 @@
                 </form>
                 
                 {% for rating in ratings%}
-                <p><strong>{{rating.user.username}}</strong> {{rating.rating}}</p>
+                <p><strong>{{rating.user.username}}</strong> Design {{rating.design}}</p>
+                <p><strong>{{rating.user.username}}</strong> Usability {{rating.usability}}</p>
+                <p><strong>{{rating.user.username}}</strong> Content {{rating.content}}</p>
                 {%endfor%}
 
             </div>
