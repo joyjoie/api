@@ -7,6 +7,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Project(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='project',null=True)
     name = models.CharField(max_length=60)
     image = models.ImageField(upload_to="image/")
     details = models.TextField()
@@ -83,9 +84,9 @@ class Comments(models.Model):
 class Ratings(models.Model):
     pr = models.ForeignKey(Project)
     user = models.ForeignKey(User)
-    design = models.CharField(max_length=60)
-    usability = models.CharField(max_length=60)
-    content = models.CharField(max_length=60)
+    design = models.IntegerField(default=0)
+    usability = models.IntegerField(default=0)
+    content = models.IntegerField(default=0)
 
 
     @classmethod

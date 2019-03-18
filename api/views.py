@@ -33,17 +33,25 @@ def index(request):
     return render(request, 'photos/index.html',context )
 
 @login_required(login_url='/accounts/login/')
-def my_project(request):
-    project = request.user.image
+def project(request,id):
+    project=Project.objects.get(id=id)
 
-   return render(request, 'photos/index.html', { "project":project,}) 
+    
+    if request.method=='POST':
+        form=RatingsForm(request.POST)
+        if form.is_valid():
+            project_id=int(request.POST.get('project_id'))
+            project=Project.objects.get(id=project_id)
+            rating=form.save(commit=False)
+            rating.pr=project
+            rating.user=request.user
+            rating.save()
+            return redirect('project', project.id)
+    else:
+        form=RatingsForm()
+    
 
-@login_required(login_url='/accounts/login/')
-def projects(request,id):
-    projects=Project.objects.get(id=id)
-    current_project=Project.objects.get(user=request.user)
-
-    return render(request, 'photos/index.html', { "projects":projects,"current_project":current_project}) 
+    return render(request, 'photos/project.html', { "project":project,"form":RatingsForm()}) 
 
 
 @login_required(login_url='/accounts/login/')
@@ -102,19 +110,3 @@ def upload(request):
         form=ProjectForm()
     return render(request, 'photos/addimg.html', {"form":form})
 
-def rating(request):
-
-    if request.method=='POST':
-        form=RatingsForm(request.POST)
-        if form.is_valid():
-            image_id=int(request.POST.get('image_id'))
-            image=Project.objects.get(id=image_id)
-            rating=form.save(commit=False)
-            rating.img=image
-            rating.user=request.user
-            rating.save()
-            return redirect('index')
-    else:
-        form=RatingsForm()
-
-    return render(request, 'photos/addimgratings.html', {"form":RatingsForm})

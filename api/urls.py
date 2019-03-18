@@ -7,8 +7,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$',views.index,name='index'),
-    url(r'^$',views.my_project,name='myprojects')
-    url(r'^image/(\d+)',views.image,name ='image'),
+    url(r'^project/(\d+)',views.project,name ='project'),
     url(r'^profile',views.my_profile, name='myprofile'),
     url(r'^profile/(\d+)?$', views.profile, name='profile'),
     url(r'^upload/$', views.upload, name='upload'),

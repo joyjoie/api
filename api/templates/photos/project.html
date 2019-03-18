@@ -1,0 +1,55 @@
+{%extends 'photos/base.html'%}
+{% load bootstrap3%}
+{% block content %}
+{{block.super}}
+
+<div class="container">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="row">
+        <!-- Single Image -->
+      
+
+        <!--Display images  -->
+        <div class="col-md-4"></div>
+            <div class="col-sm-7 col-md-7">
+                <br>
+                <br>
+                <br>
+                <img src="{{project.image.url}}" class="img-responsive" alt="Image"
+                    style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
+               
+                <p>{{ project.name }}</p>
+                <p>{{ project.details }}</p>
+                <p>{{project.link }}</p>
+
+                {% for comment in comments%}
+                {%if comment.img == image%}
+                <p><strong>{{comment.user.username}}</strong> {{comment.comment}}</p>
+                {% endif%}
+                {%endfor%}
+
+                <form action="{% url 'project' project.id%}" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token%}
+                    <input type="hidden" name="project_id" value="{{project.id}}">
+                    {% bootstrap_form form layout='inline' %}
+                    <input type="submit" value="rating" style="padding:10px">
+            
+
+
+                </form>
+                
+                
+
+
+            </div>
+            
+        
+     
+        <div class="col-md-3"></div>
+    </div>
+
+</div>
+
+
+{% endblock %}

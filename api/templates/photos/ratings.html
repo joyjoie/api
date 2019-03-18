@@ -3,8 +3,16 @@
 {% block content %}
 <div class =Container>
 
+    <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
 
-    
+        {% csrf_token%}
+        <input type="hidden" name="image_id" value="{{image.id}}">
+        {% bootstrap_form form layout='inline' %}
+        <input type="submit" value="comment" style="padding:10px">
+
+
+    </form>
+
 </div>
 
 
