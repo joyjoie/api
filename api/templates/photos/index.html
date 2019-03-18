@@ -19,7 +19,7 @@
             <img src="{{image.image.url}}" class="img-responsive" alt="Image"
                 style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
             <p>{{ image.pub_date }}</p>
-            <p>{{ image.caption }}</p>
+            <p >{{ image.caption }}</p>
 
             {% for comment in comments%}
             {%if comment.img == image%}
@@ -32,7 +32,7 @@
                 {% csrf_token%}
                 <input type="hidden" name="image_id" value="{{image.id}}">
                 {% bootstrap_form form layout='inline' %}
-                <input type="submit" value="comment">
+                <input type="submit" value="comment" style="padding:10px">
 
 
             </form>

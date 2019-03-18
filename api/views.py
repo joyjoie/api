@@ -3,7 +3,7 @@ from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 import datetime as dt
 from .models import Project,Profile,Comments
-from . forms import ProfileUpdateForm,CommentForm
+from . forms import ProfileUpdateForm,CommentForm,ProjectForm
 from django.contrib import messages
 
 # Create your views here.
@@ -29,7 +29,8 @@ def index(request):
     return render(request, 'photos/index.html',context )
 
 @login_required
-def profile(request):
+def profile(request,id):
+    profile=Profile.objects.get(id=id)
     fo=Profile.pro()
     if request.method == 'POST':
        
@@ -39,7 +40,7 @@ def profile(request):
         if  p_form.is_valid():
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return redirect('profile',profile.id)
 
     else:
         
@@ -55,5 +56,5 @@ def upload(request):
             form.save()
             return redirect('profile')
     else:
-        form =ProfileForm()
+        form=ProjectForm()
     return render(request, 'photos/addimg.html', {"form":form})
