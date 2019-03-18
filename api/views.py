@@ -6,6 +6,20 @@ from .models import Project,Profile,Comments,Ratings
 from . forms import ProfileUpdateForm,CommentForm,ProjectForm,RatingsForm
 from django.contrib import messages
 from rest_framework import viewsets
+from .serializers import ProfileSerializer,ProjectSerializer
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_deetz = Profile.objects.all()
+        serializers = ProfileSerializer(all_deetz, many=True)
+        return Response(serializers.data)
+
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_stuff = Project.objects.all()
+        serializers = ProfileSerializer(all_stuff, many=True)
+        return Response(serializers.data)
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -112,4 +126,6 @@ def upload(request):
     else:
         form=ProjectForm()
     return render(request, 'photos/addimg.html', {"form":form})
+
+
 
