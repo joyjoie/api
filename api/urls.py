@@ -11,7 +11,8 @@ urlpatterns = [
     url(r'^profile',views.my_profile, name='myprofile'),
     url(r'^profile/(\d+)?$', views.profile, name='profile'),
     url(r'^upload/$', views.upload, name='upload'),
-
+    url(r'^profileapi', views.ProfileList.as_view()),
+    url(r'^projectapi', views.ProjectList.as_view()),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
