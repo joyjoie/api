@@ -11,32 +11,49 @@
         {%for image in images%}
 
         <!--Display images  -->
-        <div class="col-md-4"></div>
-        <div class="col-sm-7 col-md-7">
-            <br>
-            <br>
-            <br>
-            <img src="{{image.image.url}}" class="img-responsive" alt="Image"
-                style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
-            <p>{{ image.pub_date }}</p>
-            <p >{{ image.caption }}</p>
+        <div class="col-md-4">
+            <div class="col-sm-7 col-md-7">
+                <br>
+                <br>
+                <br>
+                <img src="{{image.image.url}}" class="img-responsive" alt="Image"
+                    style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
+                <p>{{ image.pub_date }}</p>
+                <p>{{ image.caption }}</p>
 
-            {% for comment in comments%}
-            {%if comment.img == image%}
-            <p><strong>{{comment.user.username}}</strong> {{comment.comment}}</p>
-            {% endif%}
-            {%endfor%}
+                {% for comment in comments%}
+                {%if comment.img == image%}
+                <p><strong>{{comment.user.username}}</strong> {{comment.comment}}</p>
+                {% endif%}
+                {%endfor%}
 
-            <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
+                <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
 
-                {% csrf_token%}
-                <input type="hidden" name="image_id" value="{{image.id}}">
-                {% bootstrap_form form layout='inline' %}
-                <input type="submit" value="comment" style="padding:10px">
+                    {% csrf_token%}
+                    <input type="hidden" name="image_id" value="{{image.id}}">
+                    {% bootstrap_form form layout='inline' %}
+                    <input type="submit" value="comment" style="padding:10px">
 
 
-            </form>
+                </form>
+                {% for rating in ratings%}
+                {%if rating.img == image%}
+                <p><strong>{{rating.user.username}}</strong> {{comment.comment}}</p>
+                {% endif%}
+                {%endfor%}
 
+                <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token%}
+                    <input type="hidden" name="image_id" value="{{image.id}}">
+                    {% bootstrap_form form layout='inline' %}
+                    <input type="submit" value="comment">
+
+
+                </form>
+
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
         <div class="col-md-3"></div>
