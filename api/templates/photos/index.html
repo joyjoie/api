@@ -2,24 +2,24 @@
 {% load bootstrap3%}
 {% block content %}
 {{block.super}}
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<h2>All Projects</h2>
 <div class="container">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <div class="row">
-
         <!-- Single Image -->
         {%for image in images%}
 
         <!--Display images  -->
-        <div class="col-md-4">
+        <div class="col-md-4"></div>
             <div class="col-sm-7 col-md-7">
                 <br>
                 <br>
                 <br>
                 <img src="{{image.image.url}}" class="img-responsive" alt="Image"
                     style="padding-top :10px; width: 350px;height:300px; margin: 5px 5px 15px 0px;">
-                <p>{{ image.pub_date }}</p>
-                <p>{{ image.caption }}</p>
+               
+                <p>{{ image.description }}</p>
 
                 {% for comment in comments%}
                 {%if comment.img == image%}
@@ -36,35 +36,17 @@
 
 
                 </form>
-                {% for rating in ratings%}
-                {%if rating.img == image%}
-                <p><strong>{{rating.user.username}}</strong> {{comment.comment}}</p>
-                {% endif%}
-                {%endfor%}
-
-                <form action="{% url 'index'%}" method="POST" enctype="multipart/form-data">
-
-                    {% csrf_token%}
-                    <input type="hidden" name="image_id" value="{{image.id}}">
-                    {% bootstrap_form form layout='inline' %}
-                    <input type="submit" value="comment">
-
-
-                </form>
+                
+        
 
             </div>
-            {% endfor %}
-        </div>
+            
+        
         {% endfor %}
         <div class="col-md-3"></div>
     </div>
 
 </div>
-
-
-
-
-
 
 
 {% endblock %}
