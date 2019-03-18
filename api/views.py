@@ -28,10 +28,23 @@ def index(request):
         
     return render(request, 'photos/index.html',context )
 
+def image(request, id,slug):
+    image=get_object_or_404()
+    try: 
+        foto = Image.objects.get(id = image_id, slug=slug)
+
+    except DoesNotExist:
+        raise Http404()
+
+    # is_liked = False
+    # if image.likes.filter(id = request.user.id).exists():
+    #     is_liked = True
+
+    return render(request,"photos/image.html", {"foto":foto,"image":image})
 @login_required
 def profile(request,id):
     profile=Profile.objects.get(id=id)
-    fo=Profile.pro()
+    
     if request.method == 'POST':
        
         p_form = ProfileUpdateForm(request.POST,
@@ -46,10 +59,11 @@ def profile(request,id):
         
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    fo=Profile.pro()
+    profile=Profile.objects.get(id=id)
+    current_profile=Profile.objects.get(user=request.user)
 
-        profile=Profile.objects.get(id=id)
-        current_profile=Profile.objects.get(user=request.user)
-    return render(request, 'profile/profile.html', {"fo":fo,"profile":profile,"p_form":p_form})
+    return render(request, 'profile/profile.html', {"fo":fo,"profile":profile,"p_form":p_form,"profile":profile, "current_profile":current_profile})
 
 
 def upload(request):
