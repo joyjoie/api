@@ -32,11 +32,19 @@ def index(request):
         
     return render(request, 'photos/index.html',context )
 
-def image(request, id,):
-    imge=Project.objects.get(id=id)
+@login_required(login_url='/accounts/login/')
+def my_project(request):
+    project = request.user.image
+
+   return render(request, 'photos/index.html', { "project":project,}) 
+
+@login_required(login_url='/accounts/login/')
+def projects(request,id):
+    projects=Project.objects.get(id=id)
     current_project=Project.objects.get(user=request.user)
 
-    return render(request,"photos/image.html", {"foto":foto,"imge":imge,"current_project":current_project})
+    return render(request, 'photos/index.html', { "projects":projects,"current_project":current_project}) 
+
 
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
