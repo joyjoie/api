@@ -46,8 +46,20 @@ def image(request, id,slug):
 def my_profile(request):
     profile = request.user.profile   
     # images = Project.objects.all().filter(id = profile.user.id)
-    
-    return render(request, 'profile/profile.html', { "profile":profile })
+    if request.method == 'POST':
+           
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if  p_form.is_valid():
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    return render(request, 'profile/profile.html', { "profile":profile, "p_form":p_form })
 
 
 
