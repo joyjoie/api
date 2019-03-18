@@ -11,6 +11,7 @@ from django.contrib import messages
 def index(request):
     images = Project.display_images()
     comments=Comments.display_comments()
+    ratings=Ratings.display_ratings()
     if request.method=='POST':
         form=CommentForm(request.POST)
         if form.is_valid():
@@ -23,6 +24,20 @@ def index(request):
             return redirect('index')
     else:
         form=CommentForm()
+
+
+    if request.method=='POST':
+        form=RatingsForm(request.POST)
+        if form.is_valid():
+            image_id=int(request.POST.get('image_id'))
+            image=Project.objects.get(id=image_id)
+            rating=form.save(commit=False)
+            rating.img=image
+            rating.user=request.user
+            rating.save()
+            return redirect('index')
+    else:
+        form=RatingsForm()
 
     context ={"images":images, "comments":comments , "form":form}
         
