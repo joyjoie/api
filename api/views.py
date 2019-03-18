@@ -41,6 +41,15 @@ def image(request, id,slug):
     #     is_liked = True
 
     return render(request,"photos/image.html", {"foto":foto,"image":image})
+
+@login_required(login_url='/accounts/login/')
+def my_profile(request):
+    user = request.user    
+    images = Image.objects.all().filter(profile_id = user.id)
+    return render(request, 'profile.html', {'images':images, "user":user, "current_user":request.user })
+
+
+
 @login_required
 def profile(request,id):
     profile=Profile.objects.get(id=id)
