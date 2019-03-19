@@ -60,6 +60,10 @@ body {
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="{% url 'index' %}">Home</a>
   <a href="{% url 'profile' %}">Profile</a>
+  <form class="navbar-form" action="{% url 'search' %}">
+    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Profile" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
   <div class="dropdown-content">
       
       {% if user.is_authenticated %}
