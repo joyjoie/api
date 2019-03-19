@@ -5,20 +5,21 @@ import datetime as dt
 from .models import Project,Profile,Comments,Ratings
 from . forms import ProfileUpdateForm,CommentForm,ProjectForm,RatingsForm
 from django.contrib import messages
-from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import ProfileSerializer,ProjectSerializer
 
 class ProfileList(APIView):
     def get(self, request, format=None):
-        all_deetz = Profile.objects.all()
-        serializers = ProfileSerializer(all_deetz, many=True)
+        profile = Profile.objects.get(user=request.user)
+        serializers = ProfileSerializer(profile, many=True)
         return Response(serializers.data)
 
 
 class ProjectList(APIView):
     def get(self, request, format=None):
         all_stuff = Project.objects.all()
-        serializers = ProfileSerializer(all_stuff, many=True)
+        serializers = ProjectSerializer(all_stuff, many=True)
         return Response(serializers.data)
 
 # Create your views here.

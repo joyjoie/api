@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^upload/$', views.upload, name='upload'),
     url(r'^profileapi', views.ProfileList.as_view()),
     url(r'^projectapi', views.ProjectList.as_view()),
+   
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
