@@ -1,7 +1,7 @@
 from django.test import TestCase
 import datetime as dt
 # Create your tests here.
-from .models import Ratings
+from .models import Ratings,Profile
 import datetime as dt
 
 class RatingsTestClass(TestCase):
@@ -21,3 +21,18 @@ class RatingsTestClass(TestCase):
        Ratings.objects.all().delete()
        
 
+class ProfileTestClass(TestCase):
+     # Set up method
+    def setUp(self):
+        self.type= Profile(bio ="me")
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.type,Profile))
+
+    def test_init(self):
+       
+        self.assertTrue(self.type.bio == "me")
+
+  
+    def tearDown(self):
+       Profile.objects.all().delete()
